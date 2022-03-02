@@ -5,6 +5,7 @@ class Neuron:
     def __init__(self, name, w=None):
         self.name = name
         self.b = 0
+        self.e = 2.718
         self.msg = -1
         if w is None:
             w = []
@@ -20,7 +21,7 @@ class Neuron:
                 x = row[1]
                 y = self.activate(x)  # output
 
-                self.msg += str(d)
+                self.msg +="    t:   " + str(d)
                 if show:
                     print(self)
                 elif i + 1 == epochs:
@@ -31,6 +32,7 @@ class Neuron:
                     self.w[j] += 0.2 * e * x[j]
                 self.b += 0.2 * e
 
+
     def activate(self, event):
         self.msg = ""
         som = 0
@@ -39,11 +41,11 @@ class Neuron:
             som = som + event[i]*self.w[i]
         self.msg += str(self.b) + "b  "
         if float(som) + float(self.b) <= 0:
-            self.msg += "--->  " + str(0) + "    t:   "
+            self.msg += "--->  " + str(0)
             return 0
         elif float(som) + float(self.b) > 0:
-            self.msg += "--->  " + str(1) + "    t:   "
+            self.msg += "--->  " + str(1)
             return 1
         else:  # in het geval van een error (Maak hier een 'try except' van)
-            self.msg += "  x   " + str(-1) + "   t:   "
+            self.msg += "  x   " + str(-1)
             return False
